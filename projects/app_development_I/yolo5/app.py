@@ -6,6 +6,10 @@ from detect import run
 import uuid
 import yaml
 from loguru import logger
+import boto3
+
+ s3_client= boto3.client("s3")
+
 
 with open("data/coco128.yaml", "r") as stream:
     names = yaml.safe_load(stream)['names']
@@ -58,7 +62,11 @@ def upload_file_api():
 
         # TODO upload client original img (p) and predicted img (pred_result_img) to S3 using boto3
         #  reference: https://boto3.amazonaws.com/v1/documentation/api/latest/guide/s3-uploading-files.html
-
+       
+    
+        s3_client.upload_file(p, "   ", p)
+        
+        
         labels = []
         if pred_result_path.exists():
             with open(pred_result_path) as f:
